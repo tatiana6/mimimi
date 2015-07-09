@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>  мой сайт  </title>
+<style type="text/css">
+img {position: absolute}
+a {
+position: absolute;
+z-index: auto
+}
+a:hover {
+position: absolute;
+z-index:1
+}
+</style>
+</head>
+
+<body>
+<img src="1.png">
+<a href="20.html" style="left: "><img src="2.png"></a>
+<a href="30.html" style="left: "><img src="3.png"></a>
+<a href="40.html" style="left: "><img src="4.png"></a>
+<img src="5.png">
+
+
+</body>
+</html> 
