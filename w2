@@ -1,0 +1,96 @@
+;==================================================================================
+;большие переменные
+
+x1=10
+x2=10
+
+viner=
+vinerreal=
+
+level=2
+;==================================================================================
+;окно с 2 машинками
+
+Gui, Add, Picture, h260 w900 x0 y60, %A_ScriptDir%\content\polosa.jpg
+gui, font, s11
+Gui, Add, Text,x10 y10, Проверь свою интуицию.
+Gui, Add, Text,x10 y35, Какая машина придет к финишу первой? 	
+Gui, Add, Button, h30 w80 x300 y20, красная2
+Gui, Add, Button, h30 w80 x400 y20, зеленая2
+y1=105
+Gui, Add, Picture,  h40 w40 x10 y105, %A_ScriptDir%\content\r.jpg
+red=%A_ScriptDir%\content\r.jpg
+y2=235
+Gui, Add, Picture, h40 w40 x10 y235, %A_ScriptDir%\content\g.jpg
+green=%A_ScriptDir%\content\g.jpg
+Gui, Add, Edit, vIntEdit h30 w400 x10 y350 ReadOnly
+Gui, Add, Button, h40 w390 x500 y345, Продолжить_игру
+Gui, Show, h400 w900, Untitled
+return
+/*
+;=======================================================
+Buttonкрасная2:
+;=======================================================
+Gui, Submit , NoHide
+if (viner="")
+{
+SetTimer, TimeCh2, 100
+viner:=1
+}
+return
+
+;=======================================================
+Buttonзеленая2:
+;=======================================================
+Gui, Submit , NoHide
+if (viner="")
+{
+SetTimer, TimeCh2, 100
+viner:=2
+}
+return
+	
+;=======================================================
+;секундомер
+TimeCh2:
+Gui, Submit , NoHide
+
+;функция движения
+Random, rand1 , 10, 40
+x1:=x1+rand1
+Random, rand2 , 10, 40
+x2:=x2+rand2
+
+guicontrol , move , %red% , x%x1% y%y1%
+guicontrol , move , %green% , x%x2% y%y2%
+
+;функция прекращения движения
+if (x1>825 or x2>825)
+{
+	SetTimer, TimeCh2, off
+	
+	if (x1>x2)
+		{
+			vinerreal:=1
+			
+			}
+	else 
+	{
+		vinerreal:=2
+		}
+	
+	if (vinerreal=viner)
+	{
+		IntEdit=Поздравляем! Вы угадали!
+        GuiControl,, IntEdit , %IntEdit%
+		level:=level+1
+		}
+	Else
+	{
+	IntEdit=Вы не угадали.
+        GuiControl,, IntEdit , %IntEdit%
+	}
+	
+	
+}
+return
