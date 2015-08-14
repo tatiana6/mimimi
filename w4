@@ -1,0 +1,141 @@
+;==================================================================================
+;большие переменные
+
+x1=10
+x2=10
+x3=10
+x4=10
+
+viner=
+vinerreal=
+
+
+;==================================================================================
+;окно с 4 машинками
+
+Gui, Add, Picture, h260 w900 x0 y60, %A_ScriptDir%\content\polosa.jpg
+gui, font, s11
+Gui, Add, Text,x10 y10, Проверь свою интуицию.
+Gui, Add, Text,x10 y35, Какая машина придет к финишу первой? 	
+Gui, Add, Button, h30 w80 x300 y20, красная4
+Gui, Add, Button, h30 w80 x400 y20, зеленая4
+Gui, Add, Button, h30 w80 x500 y20, желтая4
+Gui, Add, Button, h30 w80 x600 y20, синяя4
+y1=73
+Gui, Add, Picture,  h40 w40 x10 y73, %A_ScriptDir%\content\r.jpg
+red=%A_ScriptDir%\content\r.jpg
+y2=137
+Gui, Add, Picture, h40 w40 x10 y137, %A_ScriptDir%\content\g.jpg
+green=%A_ScriptDir%\content\g.jpg
+y3=202
+Gui, Add, Picture, h40 w40 x10 y202, %A_ScriptDir%\content\y.jpg
+yellou=%A_ScriptDir%\content\y.jpg
+y4=268
+Gui, Add, Picture, h40 w40 x10 y268, %A_ScriptDir%\content\b.jpg
+blue=%A_ScriptDir%\content\b.jpg
+Gui, Add, Edit, vIntEdit h30 w400 x10 y350 ReadOnly
+Gui, Add, Button, h40 w390 x500 y345, Продолжить_игру
+Gui, Show, h400 w900, Untitled
+return
+
+;=======================================================
+Buttonкрасная4:
+;=======================================================
+Gui, Submit , NoHide
+if (viner="")
+{
+SetTimer, TimeCh4, 100
+viner:=1
+}
+return
+
+;=======================================================
+Buttonзеленая4:
+;=======================================================
+Gui, Submit , NoHide
+if (viner="")
+{
+SetTimer, TimeCh4, 100
+viner:=2
+}
+return
+
+Buttonжелтая4:
+;=======================================================
+Gui, Submit , NoHide
+if (viner="")
+{
+SetTimer, TimeCh4, 100
+viner:=3
+}
+return
+
+;=======================================================
+Buttonсиняя4:
+;=======================================================
+Gui, Submit , NoHide
+if (viner="")
+{
+SetTimer, TimeCh4, 100
+viner:=4
+}
+return
+*/	
+;=======================================================
+;секундомер
+TimeCh4:
+Gui, Submit , NoHide
+
+;функция движения
+Random, rand1 , 10, 40
+x1:=x1+rand1
+Random, rand2 , 10, 40
+x2:=x2+rand2
+Random, rand3 , 10, 40
+x3:=x3+rand3
+Random, rand4 , 10, 40
+x4:=x4+rand4
+
+guicontrol , move , %red% , x%x1% y%y1%
+guicontrol , move , %green% , x%x2% y%y2%
+guicontrol , move , %yellou% , x%x3% y%y3%
+guicontrol , move , %blue% , x%x4% y%y4%
+
+;функция прекращения движения
+if (x1>825 or x2>825 or x3>825 or x4>825)
+{
+	SetTimer, TimeCh4, off
+	
+if ((x1>x2)and(x1>x3)and(x1>x4))
+{
+	vinerreal:=1
+	}
+if ((x2>x1)and(x2>x3)and(x2>x4))
+{
+	vinerreal:=2
+	}
+if ((x3>x2)and(x3>x1)and(x3>x4))
+{
+	vinerreal:=3
+	}
+if ((x4>x2)and(x4>x1)and(x4>x3))
+{
+	vinerreal:=4
+	}
+	
+	if (vinerreal=viner)
+	{
+		IntEdit=Поздравляем! Вы угадали!
+        GuiControl,, IntEdit , %IntEdit%
+		level:=level+1
+		}
+	Else
+	{
+	IntEdit=Вы не угадали.
+        GuiControl,, IntEdit , %IntEdit%
+		level:=level-1
+	}
+	
+	
+}
+return
