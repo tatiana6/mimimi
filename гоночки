@@ -1,0 +1,99 @@
+#IncludeAgain %A_ScriptDir%\w2.ahk
+
+;=======================================================
+Buttonкрасная2:
+;=======================================================
+Gui, Submit , NoHide
+if (viner="")
+{
+SetTimer, TimeCh2, 100
+viner:=1
+}
+return
+
+;=======================================================
+Buttonзеленая2:
+;=======================================================
+Gui, Submit , NoHide
+if (viner="")
+{
+SetTimer, TimeCh2, 100
+viner:=2
+}
+return
+
+
+;=======================================================
+;секундомер
+TimeCh2:
+Gui, Submit , NoHide
+
+;функция движения
+Random, rand1 , 10, 40
+x1:=x1+rand1
+Random, rand2 , 10, 40
+x2:=x2+rand2
+
+guicontrol , move , %red% , x%x1% y%y1%
+guicontrol , move , %green% , x%x2% y%y2%
+
+;функция прекращения движения
+if (x1>825 or x2>825)
+{
+	SetTimer, TimeCh2, off
+	
+	if (x1>x2)
+		{
+			vinerreal:=1
+			
+			}
+	else 
+	{
+		vinerreal:=2
+		}
+	
+	if (vinerreal=viner)
+	{
+		IntEdit=Поздравляем! Вы угадали!
+        GuiControl,, IntEdit , %IntEdit%
+		level:=level+1
+		}
+	Else
+	{
+	IntEdit=Вы не угадали.
+        GuiControl,, IntEdit , %IntEdit%
+	}
+	
+	
+}
+return
+
+;=======================================================
+ButtonПродолжить_игру:
+;=======================================================
+Gui, Submit 
+if (level=2)
+{
+Gui, Destroy
+#IncludeAgain %A_ScriptDir%\w2.ahk
+}
+
+if (level=3)
+{
+Gui, Destroy
+#Include %A_ScriptDir%\w3.ahk
+}
+
+if (level=4)
+{
+Gui, Destroy
+#Include %A_ScriptDir%\w4.ahk
+}
+
+if (level=5)
+{
+Gui, Destroy
+#Include %A_ScriptDir%\w5.ahk
+}
+
+return
